@@ -3,11 +3,14 @@ name: build RustDeskTempTopMostWindow
 on:
   workflow_call:
     inputs:
+        upload-artifact:
+          type: boolean
+          default: true
         target:
             description: 'Target'
             required: true
             type: string
-            default: 'windows-2019'
+            default: 'windows-2022'
         configuration:
             description: 'Configuration'
             required: true
@@ -50,6 +53,7 @@ jobs:
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@master
+        if: ${{ inputs.upload-artifact }}
         with:
             name: topmostwindow-artifacts
             path: |
